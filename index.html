@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+	<title>Websockets MQTT Client</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="google-site-verification" content="BDSiXk-nYnfiTuUTCnW0e5dshX1gwKXU7-yJIGYMhd0" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+	<script defer src="paho-mqtt.js"></script>
+	<script defer src="conexaoMqtt.js"></script>
+	<script defer src="menssagem.js"></script>
+	<link rel="stylesheet" href="style.css">
+	<style>
+
+	</style>
+
+
+
+</head>
+
+
+
+<body class="container-fluid">
+	<h1>Websockets MQTT Client</h1>
+
+
+
+	<div class=" alert alert-dark" id="statusConexao">Connection Status: Not Connected</div>
+	<main class="row d-flex justify-content-around">
+		<article class="col-md-5">
+
+			<div class="row mt-5">
+
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="inputGroup-sizing-default">Topico publicar:</span>
+					</div>
+					<input type="text" id="topicoTxt" value="" required class="form-control"
+						aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+				</div>
+
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="inputGroup-sizing-default">Menssagem</span>
+					</div>
+					<input type="text" id="msgTxt" class="form-control" aria-label="Sizing example input"
+						aria-describedby="inputGroup-sizing-default">
+				</div>
+			</div>
+
+			<button type="button" id="btnMsg" class="btn btn-primary btn-block">Enviar</button>
+
+
+
+
+
+
+		</article>
+		<article class="col-md-7 mt-3">
+			<div id="topicosAtivos" class=" w-100 card">
+				<div class="w-100 card-header">
+					Topicos ativos
+				</div>
+				<div class="w-100 card-body">
+					<div id="listTopicos" class="btn-group btn-group-toggle" data-toggle="buttons">
+
+					</div>
+				</div>
+			</div>
+
+
+			<!-- <ul class="nav nav-tabs" role="tablist">
+							...
+						</ul> -->
+			<!-- <div class="boxMenssagens"> -->
+			<!-- <span class="alert alert-primary">Menssagen</span> -->
+
+			<div class="card mt-3">
+				<div class="card-header">
+					Menssagen
+				</div>
+				<div class="card-body">
+					<p id="messages"></p>
+					<p id="mensBlock">Vire a tela para as menssagens</p>
+				</div>
+			</div>
+
+
+
+			</div>
+
+
+		</article>
+
+
+
+
+	</main>
+
+
+</body>
+
+
+
+</html>
