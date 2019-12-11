@@ -2,7 +2,6 @@ let msgTxt = document.querySelector("#msgTxt")
 let topicoMsg = document.querySelector("#topicoTxt")
 let btnEnviarMsg = document.querySelector("#btnMsg")
 let subscribe = document.querySelector("#subscribeTxt")
-let BtnUnsubscribe = document.querySelector("#BtnUnsubscribe")
 let boxMessages = document.querySelector("#messages");
 let topicoAtivo = [];
 let topicoShow = "";
@@ -13,9 +12,7 @@ let novoTopico = $('#listTopicos')
 let cont = 0;
 
 
-BtnUnsubscribe.addEventListener("click", function () {
-        mqtt.unsubscribe(subscribe.value);
-})
+
 btnEnviarMsg.addEventListener("click", function () {
         enviarMensagem(topicoMsg.value, msgTxt.value);
 
