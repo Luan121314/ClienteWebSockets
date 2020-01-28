@@ -10,7 +10,7 @@ let dadoRecebido = false;
 let testeMqtt = false;
 let ip = "";
 let cliente = "";
-let tryConnected =0;
+let tryConnected = 0;
 
 // Iniciando conexão com mqtt
 if (navigator.onLine) {
@@ -26,11 +26,11 @@ window.onbeforeunload = function () {
     disconnect();
 };
 
- $(function () {
+$(function () {
     $.getJSON("https://api.ipify.org?format=jsonp&callback=?",
-     async   function (json) {
+        async function (json) {
             ip = json.ip
-            return  await ip
+            return await ip
         }
     );
 });
@@ -55,7 +55,7 @@ function onConnect() {
 }
 
 function MQTTconnect() {
-    cliente ="cliente web: " + ip+ " idConexao: "+ Math.floor(Math.random()*10000);
+    cliente = "cliente web: " + ip + " idConexao: " + Math.floor(Math.random() * 10000);
     try {
         console.log("connecting to " + host + " " + port);
         mqtt = new Paho.Client(host, port, cliente);
@@ -75,14 +75,18 @@ function MQTTconnect() {
 }
 
 function onFailure(message) {
-    
-    tryConnected++;
-    console.log("Conection Failed");
-    console.log("Menssagem: " + message.payloadString);
-    tryConnected = reconnectTimeout+tryConnected;
 
-    console.log("reconectantando em ", tryConnected, "segundos");
-    setTimeout(MQTTconnect, tryConnected);
+    if (reconnectTimeout > 1300) {
+        window.location.reload();
+    } else {
+        tryConnected * 2;
+        console.log("Conection Failed");
+        console.log("Menssagem: " + message.payloadString);
+        tryConnected = reconnectTimeout + tryConnected;
+
+        console.log("reconectantando em ", tryConnected, "segundos");
+        // setTimeout(MQTTconnect, tryConnected);
+    }
 }
 
 function enviarMensagem(topicp, messagem) {
@@ -120,12 +124,15 @@ function disconnect() {
 }
 
 setInterval(function () {
+    console.log("Verificação")
 
     if (navigator.onLine) {
         statusConexao.style.background = "Green";
         statusConexao.innerHTML = "Conetado !";
         if (!mqtt.isConnected()) {
-            onFailure({payloadString: "Aplicação deconectada do servidor"});
+            onFailure({
+                payloadString: "Erro conexão, Aplicação deconectada do servidor"
+            });
             console.log("Reconectando Mqqt");
             console.log("Mqqt desconectado");
             statusConexao.style.background = "yellow";
@@ -137,5 +144,3 @@ setInterval(function () {
         statusConexao.innerHTML = "Sem internet *_*";
     }
 }, 10000);
-
-
